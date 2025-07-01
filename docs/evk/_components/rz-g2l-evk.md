@@ -5,7 +5,7 @@
 
     [:material-developer-board: Get RZ/G2L EVK](https://www.renesas.com/us/en/products/microcontrollers-microprocessors/rz-mpus/rzg2l-evkit-evaluation-board-kit-rzg2l-mpu){ .md-button .md-button--primary .btn-yellow .btn-round target=_blank }    
 
-### Software Packages for Uubntu
+### Software Packages for Ubuntu
 
 Download the following packages for Ubuntu on RZ/G2L EVK.
 

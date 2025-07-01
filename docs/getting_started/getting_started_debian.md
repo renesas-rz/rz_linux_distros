@@ -24,16 +24,17 @@ The tool also supports writing images directly to an SD card.
     - Use QEMU to install Debian 13 from the ISO into the created image.
 
 - **Install Software Packages**:
-    - Install OSS (Open Source Software) packages including: CIP kernel, GStreamer, MMNGR, VSPMIF.
-    - Install HW Graphics packges (optional).
-    - Install HW Codec packges (optional).
+    - Install OSS (Open-source Software) packages including CIP kernel, GStreamer, MMNGR, VSPMIF.
+    - Install HW Graphics packages (optional).
+    - Install HW Codec packages (optional).
 
 - **Write The Image**:
     - Select and write the image to an SD card.
 
 ## 3. Scripts Details
 
-Split into small scripts for easy maintenance. Here is the introduction and main functions.
+The bootable Linux image creation process is implemented as several small scripts for easy maintenance.
+Here is the introduction and main functions.
 
 - `#!bash make_bootable_tool.sh`: Contain the main menu selection.
 - `#!bash install_qemu.sh`: Install QEMU version 8.2.9.
@@ -125,6 +126,11 @@ Split into small scripts for easy maintenance. Here is the introduction and main
 
     ![Prepare image](images_debian/browse_or_create_new.png)
 
+!!! note
+
+    When you perform this process for the first time, you need to create a new image (**2 Create New**).
+    You can use the created image next time (**1 Browse**).
+
 - For the **1 Browse** option, use the file dialog to select the image (e.g., `#!bash Linux_deian_base.img`). Next, press **OK** to confirm and skip to [Section 4.2.2](#422-install-software).
 
     ![Choose image](images_debian/choose_image.png)
@@ -133,7 +139,7 @@ Split into small scripts for easy maintenance. Here is the introduction and main
 
     ![Image name](images_debian/create_image.png)
 
-- Enter administrator password. The tool will then download, build, and install QEMU version 8.2.9. If it's already installed, this step will be skipped.
+- Enter the administrator password. The tool will then download, build, and install QEMU version 8.2.9. If it's already installed, this step will be skipped.
 
     ![Download QEMU](images_debian/download_QEMU.png)
 
@@ -141,7 +147,7 @@ Split into small scripts for easy maintenance. Here is the introduction and main
 
     ![Create raw image](images_debian/create_raw_image.png)
 
-- The tool will download the **Debian 13 ISO**. If it already exists in the `#!bash downloads` folder, this step will be skipped.
+- The tool will download **Debian 13 ISO**. If it already exists in the `#!bash downloads` folder, this step will be skipped.
 
     ![Download ISO file](images_debian/download_iso_file.png)
 
@@ -161,7 +167,7 @@ Split into small scripts for easy maintenance. Here is the introduction and main
 
     ![Select "Install Software" option](images_debian/option_install_software.png)
 
-- Enter administrator password. The tool will then install all .deb packages into `Linux_deian_base.img`.
+- Enter the administrator password. The tool will then install all .deb packages into `Linux_deian_base.img`.
 
     ![Install software packages](images_debian/install_renesas_sw.png)
 
@@ -215,7 +221,7 @@ Split into small scripts for easy maintenance. Here is the introduction and main
 
     ![Select language](images_debian/select_language.png)
 
-- Select your country, territory or area (e.g., **United States**).
+- Select your country, territory, or area (e.g., **United States**).
 
     ![Select location](images_debian/select_location.png)
 
@@ -223,7 +229,7 @@ Split into small scripts for easy maintenance. Here is the introduction and main
 
     ![Configure keyboard](images_debian/configure_keyboard.png)
 
-- Edit the hostname (e.g, **debian**), then press **Continue**.
+- Edit the hostname (e.g., **debian**), then press **Continue**.
 
     ![Host name](images_debian/enter_hostname.png)
 
@@ -237,7 +243,7 @@ Split into small scripts for easy maintenance. Here is the introduction and main
 
     ![Verify root password](images_debian/verify_root_password.png)
 
-- Create user account (e.g., **user**).
+- Create a user account (e.g., **user**).
 
     ![User name](images_debian/new_user.png)
 
@@ -269,7 +275,7 @@ Split into small scripts for easy maintenance. Here is the introduction and main
 
     ![Write to disk](images_debian/write_to_disk.png)
 
-- Press **Yes** to update the software using network mirror.
+- Press **Yes** to update the software using a network mirror.
 
     ![Network mirror](images_debian/network_mirror.png)
 

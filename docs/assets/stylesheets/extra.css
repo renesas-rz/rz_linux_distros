@@ -716,6 +716,10 @@ p.diamond + .language-bash code>span::before {
   content: "> ";
 }
 
+p.diamond2 + .language-bash code>span::before {
+  content: "=> ";
+}
+
 p.hash + .language-bash code>span::before {
   content: "# ";
 }

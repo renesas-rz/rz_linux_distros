@@ -24,22 +24,23 @@ The tool also supports writing images directly to an SD card.
     - Use QEMU to install Ubuntu 24.04 from the ISO into the created image.
 
 - **Install Software Packages**:
-    - Install OSS (Open Source Software) packages including: CIP kernel, GStreamer, MMNGR, VSPMIF.
-    - Install HW Graphics packges (optional).
-    - Install HW Codec packges (optional).
+    - Install OSS (Open-source Software) packages including CIP kernel, GStreamer, MMNGR, VSPMIF.
+    - Install HW Graphics packages (optional).
+    - Install HW Codec packages (optional).
 
 - **Write The Image**:
     - Select and write the image to an SD card.
 
 ## 3. Scripts Details
 
-Split into small scripts for easy maintenance. Here is the introduction and main functions.
+The bootable Linux image creation process is implemented as several small scripts for easy maintenance.
+Here is the introduction and main functions.
 
 - `#!bash make_bootable_tool.sh`: Contain the main menu selection.
 - `#!bash install_qemu.sh`: Install QEMU version 8.2.9.
 - `#!bash run_qemu.sh`: Start QEMU VM to install Ubuntu 24.04 from the ISO into the image.
 - `#!bash install_renesas_sw.sh`: Set up environment for chroot method to install software packages.
-- `#!bash install_packages_ubuntu.sh`: Install software packages inside a Ubuntu chroot environment.
+- `#!bash install_packages_ubuntu.sh`: Install software packages inside an Ubuntu chroot environment.
 - `#!bash attach_sd.sh`: Write bootable image to SD card.
 - `#!bash settings.txt`: Save previously used image names.
 
@@ -114,6 +115,11 @@ Split into small scripts for easy maintenance. Here is the introduction and main
 
     ![Select image](images_ubuntu/select_image.png)
 
+!!! note
+
+    When you perform this process for the first time, you need to create a new image (**2 Create New**).
+    You can use the created image next time (**1 Browse**).
+
 - For the **1 Browse** option, use the file dialog to select the image (e.g., `#!bash Linux.img`). Next, press **OK** to confirm and skip to [Section 4.2.2](#422-install-software).
 
     ![Choose image](images_ubuntu/select_available_image.png)
@@ -122,7 +128,7 @@ Split into small scripts for easy maintenance. Here is the introduction and main
 
     ![Image name](images_ubuntu/naming_new_image.png)
 
-- Enter administrator password. The tool will then download, build, and install QEMU version 8.2.9. If it's already installed, this step will be skipped.
+- Enter the administrator password. The tool will then download, build, and install QEMU version 8.2.9. If it's already installed, this step will be skipped.
 
     ![Download QEMU](images_ubuntu/download_qemu.png)
 

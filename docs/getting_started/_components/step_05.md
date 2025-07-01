@@ -1,6 +1,6 @@
 ## Step 5: Write flash writer and bootloaders
 
-The following tools are used in this instructions. Please install them to your PC in advance.
+The following tools are used in the instructions below. Please install them to your PC in advance.
 
 === "Windows PC"
 
@@ -42,7 +42,7 @@ Configure the setting of serial communication on terminal software as follows:
     |   Variable   |        Value          |
     |:------------:|:----------------------|
     | Baud rate    | `#!bash 115200` bps   |
-    | Data         |`#!bash 8 bit`         |
+    | Data         |`#!bash 8 bits`        |
     | Parity       | `#!bash none`         |
     | Stop         | `#!bash 1 bit`        |
     | Flow control | `#!bash none`         |

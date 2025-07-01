@@ -10,7 +10,7 @@ Click the button below to get the board.
 
     The RZ/G2L Evaluation Board Kit (EVK) is the ideal board kit for RZ/G2L evaluation.
 
-    Following items are included in the RZ/G2L Evaluation Board Kit.
+    The following items are included in the RZ/G2L Evaluation Board Kit.
 
     !!! content-wrapper no-indent ""
 

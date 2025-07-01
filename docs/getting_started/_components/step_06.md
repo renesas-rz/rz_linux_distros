@@ -78,7 +78,7 @@ Configure U-Boot environment variables to boot from a microSD card as follows:
     setenv bootcmd 'load mmc 1:1 0x48080000 efi/boot/bootaa64.efi; bootefi 0x48080000'
     saveenv
     ```
-    {: .diamond}
+    {: .diamond2}
 
     U-Boot will load _"efi/boot/bootaa64.efi"_ from EFI partition **(default: partition 1)** of the microSD card.
     If the EFI partition resides on a different partition, such as partition 2, please modify _"1:1"_ to _"1:2"_.
@@ -89,7 +89,7 @@ Configure U-Boot environment variables to boot from a microSD card as follows:
     setenv bootcmd 'load mmc 1:2 0x48080000 efi/boot/bootaa64.efi; bootefi 0x48080000'
     saveenv
     ```
-    {: .diamond}
+    {: .diamond2}
 
     U-Boot will load _"efi/boot/bootaa64.efi"_ from EFI partition **(default: partition 2)** of the microSD card.
     If the EFI partition resides on a different partition, such as partition 1, please modify _"1:2"_ to _"1:1"_.
@@ -104,21 +104,21 @@ Configure U-Boot environment variables to boot from a microSD card as follows:
     setenv ethaddr XX:XX:XX:XX:XX:XX
     saveenv
     ```
-    {: .diamond }
+    {: .diamond2 }
 
     * For eth1,
     ``` bash
     setenv eth1addr XX:XX:XX:XX:XX:XX
     saveenv
     ```
-    {: .diamond }
+    {: .diamond2 }
 
     To restore default environment variables in u-boot, run the following command:
 
     ``` bash
     env default -a
     ```
-    {: .diamond }
+    {: .diamond2 }
 
 
 Press the RESET button (SW10) to start Ubuntu / Debian.
@@ -128,7 +128,7 @@ Press the RESET button (SW10) to start Ubuntu / Debian.
 When you turn on the power of the EVK or press the RESET button, you will see **GNU GRUB** menu.
 Select **Linux-renesas-6.1** in the menu, and press ++enter++.
 
-When you run Ubuntu / Debian first time on the environment, configure network so that you can install packages with `#!bash apt`.
+When you run Ubuntu / Debian for the first time on the environment, configure network so that you can install packages with `#!bash apt`.
 
 === "Ubuntu"
 
@@ -143,7 +143,7 @@ When you run Ubuntu / Debian first time on the environment, configure network so
           dhcp4: true
     ```
 
-    Then, execute the following command to to apply the settings.
+    Then, execute the following command to apply the settings.
     ```bash
     sudo netplan apply
     ```
@@ -166,6 +166,5 @@ When you run Ubuntu / Debian first time on the environment, configure network so
 
 ### 4. Run Ubuntu / Debian on EVK
 
-Turn on the power of the EVK, or press the RESET button.
+Turn on the power of the EVK or press the RESET button.
 Select **Linux-renesas-6.1** in the **GNU GRUB** menu, and press ++enter++ to run Ubuntu / Debian on the EVK.
-
