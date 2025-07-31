@@ -42,17 +42,18 @@ If it succeeds, you will see the following messages:
 
 ``` console
 NOTICE:  BL2: v2.9(release):v2.5/rzg2l-1.00-3892-gcc1869562
-NOTICE:  BL2: Built : 20:49:37, Jun 22 2025
+NOTICE:  BL2: Built : 16:36:45, Jul  2 2025
 NOTICE:  BL2: Booting BL31
 NOTICE:  BL31: v2.9(release):v2.5/rzg2l-1.00-3892-gcc1869562
-NOTICE:  BL31: Built : 20:49:38, Jun 22 2025
+NOTICE:  BL31: Built : 16:36:48, Jul  2 2025
 
 
-U-Boot 2021.10-g5141064c15 (Jun 22 2025 - 20:48:27 +0700)
+U-Boot 2021.10-gb105c304da (Jul 02 2025 - 16:35:42 +0700)
 
 CPU:   Renesas Electronics CPU rev 1.0
 Model: smarc-rzg2l
 DRAM:  1.9 GiB
+SF: Detected mt25qu512a with page size 256 Bytes, erase size 64 KiB, total 64 MiB
 WDT:   watchdog@0000000012800800
 WDT:   Started with servicing (60s timeout)
 MMC:   sd@11c00000: 0, sd@11c10000: 1
@@ -63,6 +64,8 @@ Err:   serial@1004b800
 U-boot WDT started!
 Net:
 Error: ethernet@11c20000 address not set.
+
+Error: ethernet@11c30000 address not set.
 No ethernet found.
 
 Hit any key to stop autoboot:  0
@@ -80,7 +83,7 @@ Configure U-Boot environment variables to boot from a microSD card as follows:
     ```
     {: .diamond2}
 
-    U-Boot will load _"efi/boot/bootaa64.efi"_ from EFI partition **(default: partition 1)** of the microSD card.
+    Load and boot _"bootaa64.efi"_ from EFI partition 1 of the microSD card (CN10).
     If the EFI partition resides on a different partition, such as partition 2, please modify _"1:1"_ to _"1:2"_.
 
 === "Debian"
@@ -91,32 +94,30 @@ Configure U-Boot environment variables to boot from a microSD card as follows:
     ```
     {: .diamond2}
 
-    U-Boot will load _"efi/boot/bootaa64.efi"_ from EFI partition **(default: partition 2)** of the microSD card.
+    Load and boot _"bootaa64.efi"_ from EFI partition 2 of the microSD card (CN10).
     If the EFI partition resides on a different partition, such as partition 1, please modify _"1:2"_ to _"1:1"_.
+
+
+The RZ/G2L EVK does not have a MAC address, so you need to set appropriate MAC addresses.
+Set the Ethernet MAC addresses on U-boot as follows:
+
+``` bash
+setenv ethaddr XX:XX:XX:XX:XX:XX
+setenv eth1addr XX:XX:XX:XX:XX:XX
+saveenv
+```
+{: .diamond2 }
+
+You can assign other values, but please ensure that they are unique.
+<font color="red">Both of the Ethernet MAC addresses must be defined;</font> otherwise, U-Boot will encounter a _"Synchronous Abort"_ exception when booting _"bootaa64.efi"_.
 
 !!! note
 
-    The RZ/G2L EVK does not have a MAC address, so you need to set an appropriate MAC address when you use ethernet.
-    You can set the address on U-boot as follows:
-
-    * For eth0,
-    ``` bash
-    setenv ethaddr XX:XX:XX:XX:XX:XX
-    saveenv
-    ```
-    {: .diamond2 }
-
-    * For eth1,
-    ``` bash
-    setenv eth1addr XX:XX:XX:XX:XX:XX
-    saveenv
-    ```
-    {: .diamond2 }
-
-    To restore default environment variables in u-boot, run the following command:
+    If you would like to restore default environment variables in u-boot, run the following command:
 
     ``` bash
     env default -a
+    saveenv
     ```
     {: .diamond2 }
 

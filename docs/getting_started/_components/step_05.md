@@ -204,13 +204,13 @@ Send the data of `#!bash fip-smarc-rzg2*.srec` from terminal software in the sam
     In the case that the following message is shown, enter ++y++.
 
     ``` console
-    SPI Data Clear(H'FF) Check :H'00000000-0000FFFF,Clear OK?(y/n)
+    SPI Data Clear(H'FF) Check :H'00010000-000EFFFF,Clear OK?(y/n)
     ```
 
 After writing the data is completed, the following messages like below are shown on the terminal.
 
 ``` console
-SPI Data Clear(H'FF) Check :H'00010000-000DFFFF Erasing..............Erase Completed
+SPI Data Clear(H'FF) Check :H'00010000-000EFFFF Erasing..............Erase Completed
 SAVE SPI-FLASH.......
 ======= Qspi  Save Information  =================
  SpiFlashMemory Stat Address : H'0001D200

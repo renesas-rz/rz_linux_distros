@@ -75,19 +75,9 @@ Here is the introduction and main functions.
     tar xf RTK0EF0045Z0033AZJ-v*_EN/rz-graphics-v*.tar.gz -C ${WORK_DIR}
     unzip RTK0EF0045Z0039AZJ-v*_EN.zip
     tar xf RTK0EF0045Z0039AZJ-v*_EN/rz-codecs-v*.tar.gz -C ${WORK_DIR}
-    7z x debian13-testing-arm64-iso_May26-2025.7z
-    mv debian13-testing-arm64-iso_May26-2025/debian-testing-arm64-DVD-1.iso ${WORK_DIR}/installer/downloads/
     ```
     {: .dollar }
 
-    !!! note
-
-        In the case that you have never used `#!bash 7z` on your PC, install `#!bash 7z` as follows:
-
-        ``` bash
-        sudo apt install p7zip-full
-        ```
-        {: .dollar }
 
 - Check your working directory:
 
@@ -131,7 +121,7 @@ Here is the introduction and main functions.
     When you perform this process for the first time, you need to create a new image (**2 Create New**).
     You can use the created image next time (**1 Browse**).
 
-- For the **1 Browse** option, use the file dialog to select the image (e.g., `#!bash Linux_deian_base.img`). Next, press **OK** to confirm and skip to [Section 4.2.2](#422-install-software).
+- For the **1 Browse** option, use the file dialog to select the image (e.g., `#!bash Debian_13.img`). Next, press **OK** to confirm and skip to [Section 4.2.2](#422-install-software).
 
     ![Choose image](images_debian/choose_image.png)
 
@@ -167,7 +157,7 @@ Here is the introduction and main functions.
 
     ![Select "Install Software" option](images_debian/option_install_software.png)
 
-- Enter the administrator password. The tool will then install all .deb packages into `Linux_deian_base.img`.
+- Enter the administrator password. The tool will then install all .deb packages into `Debian_13.img`.
 
     ![Install software packages](images_debian/install_renesas_sw.png)
 
@@ -179,7 +169,7 @@ Here is the introduction and main functions.
 
 - Plug in the microSD card to the Host PC.
 
-- Press Enter on **Write Image:** to write `#!bash Linux_deian_base.img` to the microSD card.
+- Press Enter on **Write Image:** to write `#!bash Debian_13.img` to the microSD card.
 
     ![Select "Write Image" option](images_debian/option_write_image.png)
 
@@ -191,7 +181,7 @@ Here is the introduction and main functions.
 
     ![Confirm action](images_debian/confirm_write_image.png)
 
-- The tool will write `#!bash Linux_deian_base.img` to `#!bash sdb Transcend (59,5G)`. Wait until 16GiB of data is written.
+- The tool will write `#!bash Debian_13.img` to `#!bash sdb Transcend (59,5G)`. Wait until 16GiB of data is written.
 
     ![Write image](images_debian/write_image.png)
 

@@ -11,15 +11,13 @@ This solution supports the following distros and evaluation boards.
 
 !!! content-wrapper no-indent table-no-sort table-no-hover ""
 
-    +-----------------------------------+-------------------+-----------------------------------------------+
-    | Linux Distro                      | kernel Version    | Target Board                                  |
-    +===================================+===================+===============================================+
-    | Ubuntu 24.04                      | 6.1               | RZ/G2L EVK (RTK9744L23S01000BE)               |
-    +-----------------------------------+-------------------+-----------------------------------------------+
-    | Debian 13 testing                 | 6.1               | RZ/G2L EVK (RTK9744L23S01000BE)               |
-    | version^[1](#tf:1)^{: #tfref:1 }  |                   |                                               |
-    +-----------------------------------+-------------------+-----------------------------------------------+
+    +-------------------------------------------+-------------------+-----------------------------------------------+
+    | Linux Distro                              | kernel Version    | Target Board                                  |
+    +===========================================+===================+===============================================+
+    | Ubuntu 24.04                              | 6.1               | RZ/G2L EVK (RTK9744L23S01000BE)               |
+    +-------------------------------------------+-------------------+-----------------------------------------------+
+    | Debian 13 RC1^[1](#tf:1)^{: #tfref:1 }    | 6.1               | RZ/G2L EVK (RTK9744L23S01000BE)               |
+    +-------------------------------------------+-------------------+-----------------------------------------------+
 
-    1. This solution uses Debian 13 [weekly build](https://cdimage.debian.org/cdimage/weekly-builds/){: target=_blank } on May 26, 2025. <br>
-    For information about the *testing version*, refer to [Debian Releases](https://www.debian.org/releases/){: target=_blank }. [↩](#tfref:1){: .tf-backref }
+    1. This solution uses Debian 13 [RC1](https://www.debian.org/devel/debian-installer/News/2025/20250517){: target=_blank } on May 17, 2025. [↩](#tfref:1){: .tf-backref }
     {: #tf:1 }
