@@ -141,6 +141,34 @@ Here is the introduction and main functions.
     ![Download ISO file](images_ubuntu/download_ubuntu_iso.png)
     ![Compelte Download ISO file](images_ubuntu/complete_download_iso.png)
 
+!!! note
+
+    Downloading the Ubuntu ISO image may take a long time depending on your environment.
+    You can also download it from a [**mirror**](https://www.renesas.com/document/sws/ubuntu-24042-live-server-arm64-iso).
+    Please choose whichever is more convenient for you. <br>
+    When you download the image from the mirror, set up your environment as follows.
+
+    1. If you have never used `#!bash 7z` on your PC, install `#!bash 7z` first.
+    ``` bash
+    sudo apt install p7zip-full
+    ```
+    {: .dollar }
+
+    2. Create a directory.
+    ``` bash
+    mkdir -p ${WORK_DIR}/installer/downloads/
+    ```
+    {: .dollar }
+
+    3. Decompress the downloaded file from the mirror, and move the ISO image to your working directory.
+    ``` bash
+    7z x ubuntu-24.04.2-live-server-arm64-iso.7z
+    mv ubuntu-24.04.2-live-server-arm64-iso/ubuntu-24.04.2-live-server-arm64.iso ${WORK_DIR}/installer/downloads/
+    ```
+    {: .dollar }
+
+    4. Then, execute `#!bash ./make_bootable_tool.sh`.
+
 - The tool will use QEMU VM to install Ubuntu 24.04 to `#!bash Linux.img`. Press **OK** to continue.
 
     ![Start QEMU](images_ubuntu/starting_qemu_vm.png)
