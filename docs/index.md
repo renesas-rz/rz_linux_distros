@@ -6,9 +6,8 @@ They provide rich software ecosystems, and users can easily install the software
 
 **Ubuntu and Debian for RZ MPU Linux** solution helps you to create Ubuntu/Debian environments on RZ MPU Evaluation Board Kit (EVK) for evaluation purposes.
 
-* Free of charge
-    * This solution provides information for creating Ubuntu/Debian environments free of charge.
-    You can evaluate Ubuntu/Debian for free without a contract.
+* Free access for developers
+    * This solution provides information for creating Ubuntu/Debian environments for evaluation and proof of concept purposes without any licensing contracts on the RZ EVK.
 * Easy-to-use
     * This solution provides guides, software, and scripts for creating Ubuntu/Debian environments.
     You can easily create Ubuntu/Debian environments by using software and scripts.

@@ -2,10 +2,11 @@
 
 ![](overview/images/ubuntu-debian-block-diagram_overview.svg){ align=right width=400 style=max-width:40% }
 
-This solution provides documents (this website), Renesas software, and script that help you create Ubuntu and Debian environments running on RZ EVK.
+This solution provides documents (this website), Renesas software, and script that help you to download Ubuntu and Debian ISO image from their web site, then create Ubuntu and Debian environments running on RZ EVK.
 The scripts merge Ubuntu/Debian root filesystem and Renesas software (Linux kernel, graphics library, codec library, and so on) to create the Ubuntu/Debian environment.
 You can install additional software packages by using _'apt'_ command.
 Renesas support covers Renesas deliverables only, i.e., Renesas software, documents, and scripts.
+Ubuntu image is maintained by Canonical. Support is available through Canonical.
 
 This solution supports the following distros and evaluation boards.
 
