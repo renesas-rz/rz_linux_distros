@@ -76,8 +76,7 @@ extra:
   #   provider: mike
   analytics:
     provider: google
-    property: G-GRFWRLRJBD
-    # https://renesas-rz.github.io/rz_linux_distros/
+    property: !ENV GOOGLE_ANALYTICS_KEY
 
 extra_css:
   - assets/stylesheets/extra.css
