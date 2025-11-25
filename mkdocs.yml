@@ -10,6 +10,7 @@ nav:
   # - Guidelines: guidelines/index.md
   - Home: index.md
   - Getting Started: getting_started/index.md
+  - Appendix: appendix/index.md
 
 theme:
   name: material
@@ -125,6 +126,7 @@ plugins:
         - getting_started/_*/*
         - evk/_*/*
         - history/_*/*
+        - appendix/_*/*
   - glightbox
   - include-markdown
   # - mkdocs-video
@@ -144,7 +146,9 @@ plugins:
           - assets/stylesheets/extra.css
   - table-reader
   # macros must be in the bottom one
-  - macros
+  - macros:
+      include_yaml:
+        - gst: docs/appendix/_tables/gstreamer_data.yml
 
 hooks:
   - mkdocs_event_hook.py

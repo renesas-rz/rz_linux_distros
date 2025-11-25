@@ -1,0 +1,15 @@
+header:
+  - Ubuntu/Debian Version
+  - GStreamer Version
+  - User's Manual
+
+version:
+  - distro_version: Ubuntu 24.04 Noble Numbat
+    gstreamer_version: v1.24.2
+  - distro_version: Debian 13 Trixie
+    gstreamer_version: v1.26.2
+
+um:
+  - title: "RZ/G2L Group and RZ/V2L Group"
+    subtitle: "Linux Interface Specification GStreamer User's Manual: Software"
+    url: https://www.renesas.com/document/mas/rzg2l-group-and-rzv2l-group-linux-interface-specification-gstreamer-users-manual-software
