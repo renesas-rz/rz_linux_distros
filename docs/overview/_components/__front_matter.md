@@ -22,3 +22,7 @@ This solution supports the following distros and evaluation boards.
 
     1. This solution uses Debian 13 [RC1](https://www.debian.org/devel/debian-installer/News/2025/20250517){: target=_blank } on May 17, 2025. [↩](#tfref:1){: .tf-backref }
     {: #tf:1 }
+
+The [Getting Started](getting_started/index.md) section provides a complete guide to running Ubuntu and Debian on the RZ MPU EVK.
+It covers environment preparation, board setup, and steps to run Ubuntu and Debian.
+**Get your board and get started!**

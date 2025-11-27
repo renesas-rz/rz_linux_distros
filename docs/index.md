@@ -16,4 +16,5 @@ They provide rich software ecosystems, and users can easily install the software
 
 {% include "./overview/_components/__front_matter.md" %}
 
-{% include "./getting_started/_components/__front_matter.md" %}
+{% include "./application_example/_components/__front_matter.md" %}
+
