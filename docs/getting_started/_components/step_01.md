@@ -18,3 +18,18 @@ Click the button below to get the board.
     | ------------------------- | -------------------------------------------------- |
     | RZ/G2L Evaluation Board   | Evaluation board itself                            |
     | Micro USB to Serial Cable | For serial communication between PC and the board  |
+
+=== "RZ/G3E"
+
+    ![](../evk/images/rtk9947e57s01000be-angle.jpg){ align=right width=220 style=max-width:35%; }
+
+    The RZ/G3E Evaluation Board Kit (EVK) is the ideal board kit for RZ/G3E evaluation.
+
+    The following items are included in the RZ/G3E Evaluation Board Kit.
+
+    !!! content-wrapper no-indent ""
+
+    | Equipment                 | Details                                            |
+    | ------------------------- | -------------------------------------------------- |
+    | RZ/G3E Evaluation Board   | Evaluation board itself                            |
+    | Micro USB to Serial Cable | For serial communication between PC and the board  |
