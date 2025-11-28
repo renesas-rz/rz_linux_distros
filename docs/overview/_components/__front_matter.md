@@ -8,17 +8,22 @@ You can install additional software packages by using _'apt'_ command.
 Renesas support covers Renesas deliverables only, i.e., Renesas software, documents, and scripts.
 Ubuntu image is maintained by Canonical. Support is available through Canonical.
 
+<br>
 This solution supports the following distros and evaluation boards.
 
 !!! content-wrapper no-indent table-no-sort table-no-hover ""
 
-    +-------------------------------------------+-------------------+-----------------------------------------------+
-    | Linux Distro                              | kernel Version    | Target Board                                  |
-    +===========================================+===================+===============================================+
-    | Ubuntu 24.04                              | 6.1               | RZ/G2L EVK (RTK9744L23S01000BE)               |
-    +-------------------------------------------+-------------------+-----------------------------------------------+
-    | Debian 13 RC1^[1](#tf:1)^{: #tfref:1 }    | 6.1               | RZ/G2L EVK (RTK9744L23S01000BE)               |
-    +-------------------------------------------+-------------------+-----------------------------------------------+
+    +-------------------------------------------+-----------------------------------------------+-------------------+-------------------+-------------------------------+-------------------------------+
+    | Linux Distro                              | Target Board                                  | Package Version   | kernel Version    | Limitations                   | Known Issues                  |
+    +===========================================+===============================================+===================+===================+===============================+===============================+
+    | Ubuntu 24.04.2                            | RZ/G2L EVK (RTK9744L23S01000BE)               | v1.0.1            | 6.1               | -                             | -                             |
+    +-------------------------------------------+-----------------------------------------------+-------------------+-------------------+-------------------------------+-------------------------------+
+    | Ubuntu 24.04.3                            | RZ/G3E EVK (RTK9947E57S01000BE)               | v1.0.0            | 6.1               | [L#1](./#limitations)         | -                             |
+    +-------------------------------------------+-----------------------------------------------+-------------------+-------------------+-------------------------------+-------------------------------+
+    | Debian 13 RC1^[1](#tf:1)^{: #tfref:1 }    | RZ/G2L EVK (RTK9744L23S01000BE)               | v1.0.1            | 6.1               | -                             | [K#1](./#known-issues)        |
+    +-------------------------------------------+-----------------------------------------------+-------------------+-------------------+-------------------------------+-------------------------------+
+    | Debian 13.1                               | RZ/G3E EVK (RTK9947E57S01000BE)               | v1.0.0            | 6.1               | [L#1](./#limitations)         | [K#1](./#known-issues)        |
+    +-------------------------------------------+-----------------------------------------------+-------------------+-------------------+-------------------------------+-------------------------------+
 
     1. This solution uses Debian 13 [RC1](https://www.debian.org/devel/debian-installer/News/2025/20250517){: target=_blank } on May 17, 2025. [↩](#tfref:1){: .tf-backref }
     {: #tf:1 }
@@ -26,3 +31,24 @@ This solution supports the following distros and evaluation boards.
 The [Getting Started](getting_started/index.md) section provides a complete guide to running Ubuntu and Debian on the RZ MPU EVK.
 It covers environment preparation, board setup, and steps to run Ubuntu and Debian.
 **Get your board and get started!**
+
+### Limitations
+
+Limitations in Renesas deliverables are shown below:
+
+!!! content-wrapper no-indent table-no-sort table-no-hover ""
+
+	| ID            | Description                                   | Planned Fix           |
+	| ------------- | --------------------------------------------- | --------------------- |
+	| **L#1**       | On the Renesas Linux for RZ/G3E EVK, slight striping artifacts might occur in the video stream captured with a USB camera. | T.B.D. |
+
+### Known Issues
+
+Known issues in Ubuntu / Debian root file system are shown below:
+
+!!! content-wrapper no-indent table-no-sort table-no-hover ""
+
+	| ID            | Description                                   |
+	| ------------- | --------------------------------------------- |
+	| **K#1**       | On Debian 13 RC1 and Debian 13, `#!bash aplay` in [alsa-utils](https://github.com/alsa-project/alsa-utils) does not correctly handle 24-bit WAV audio files. |
+
