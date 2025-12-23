@@ -1,294 +1,280 @@
----
-hide:
-  - navigation
-  - toc
----
-
-# RZ/G2L Ubuntu Bootable Tool
-
-[Back to Getting Started >](../../getting_started/index.md#step-4-create-a-bootable-microsd-card){ .md-button .btn-right }
+# Ubuntu Bootable Tool
 
 ## 1. Overview
 
-The **RZ/G2L Ubuntu Bootable Tool** is a Bash script designed to streamline the creation and customization of bootable ARM64 Linux disk images for Ubuntu 24.04 on the RZ/G2L platform.
-
-It offers a user-friendly, menu-based interface using `#!bash whiptail` and `#!bash zenity`, making it easy to create, manage disk images and apply custom configurations.
-
-The tool also supports writing images directly to an SD card.
+The **Ubuntu Bootable Tool** is a Bash script designed to streamline the creation and customization of bootable ARM64 Linux disk images for Ubuntu 24.04 on the RZ/G platforms. It offers a user-friendly, menu-based interface using `whiptail` and `zenity`, making it easy to create, and apply custom configurations. The tool also supports writing images directly to an external media (e.g., SD card).
 
 ## 2. Objectives
 
-- **Preparing The Image**:
-    - Use an existing image or create a new 16GB image.
-    - Download Ubuntu 24.04 ARM64 ISO if it doesn't exist already.
-    - Use QEMU to install Ubuntu 24.04 from the ISO into the created image.
+- **Prepare The Image**:
+  - Use an existing image or create a new image.
+  - Download Ubuntu 24.04 ARM64 ISO if it doesn't exist already.
+  - Use QEMU to install Ubuntu 24.04 to the image.
 
 - **Install Software Packages**:
-    - Install OSS (Open-source Software) packages including CIP kernel, GStreamer, MMNGR, VSPMIF.
-    - Install HW Graphics packages (optional).
-    - Install HW Codec packages (optional).
+  - Install OSS (Open Source Software) packages including: CIP kernel, GStreamer, MMNGR, VSPMIF.
+  - Install HW Graphics packages (optional).
+  - Install HW Codecs packages (optional).
 
 - **Write The Image**:
-    - Select and write the image to an SD card.
+  - Select and write the image to an external media (e.g., SD card).
 
 ## 3. Scripts Details
 
-The bootable Linux image creation process is implemented as several small scripts for easy maintenance.
-Here is the introduction and main functions.
+Split into smaller scripts for easier maintenance. The following introduces the scripts and their main functions:
 
-- `#!bash make_bootable_tool.sh`: Contain the main menu selection.
-- `#!bash install_qemu.sh`: Install QEMU version 8.2.9.
-- `#!bash run_qemu.sh`: Start QEMU VM to install Ubuntu 24.04 from the ISO into the image.
-- `#!bash install_renesas_sw.sh`: Set up environment for chroot method to install software packages.
-- `#!bash install_packages_ubuntu.sh`: Install software packages inside an Ubuntu chroot environment.
-- `#!bash attach_sd.sh`: Write bootable image to SD card.
-- `#!bash settings.txt`: Save previously used image names.
+- `make_bootable_image.sh`: Contain the main menu selection.
+- `install_qemu.sh`: Install QEMU version 8.2.9.
+- `run_qemu.sh`: Start QEMU VM to install Ubuntu 24.04 to the image.
+- `install_renesas_sw.sh`: Set up chroot environment to install software packages.
+- `install_packages_ubuntu.sh`: Install .deb packages.
+- `write_image.sh`: Write the image to an external media (e.g., SD card).
+- `settings.txt`: Contain user settings.
 
 ## 4. Usage
 
 ### 4.1 Prerequisites
 
-- Ubuntu 22.04 LTS, and 24.04 LTS are supported.
-- Internet connection is required.
-- The `#!bash sudo` permission is required.
-- 50GB+ available storage.
-- 32GB+ microSD card.
+- Supported OS: Ubuntu 22.04 LTS or 24.04 LTS.
+  - Internet connection is required.
+  - The sudo permission is required.
+- Tested hardware:
+  - Processor: Intel Core i5-7400 (4 cores, 4 threads).
+  - RAM: 8 GB.
+  - Storage: Minimum 50 GB available.
+- External media: At least 32 GB (e.g., microSD card).
 
 ### 4.2 How To Use
 
-- Set the following environment:
-
-    ```bash
-    export DL_DIR=<A directory path where packages downloaded in step 3 are stored>
-    export WORK_DIR=<A path to your working directory>
-    ```
-    {: .dollar }
-
-- Create your working directory, and decompress packages:
-
-    ```bash
-    mkdir -p ${WORK_DIR}
-    cd ${DL_DIR}
-    unzip RTK0EF0045Z0030AZJ-v*.zip
-    tar xf RTK0EF0045Z0030AZJ-v*/rz-ubuntu-support-v*.tar.gz -C ${WORK_DIR}
-    unzip RTK0EF0045Z0032AZJ-v*_EN.zip
-    tar xf RTK0EF0045Z0032AZJ-v*_EN/rz-graphics-v*.tar.gz -C ${WORK_DIR}
-    unzip RTK0EF0045Z0038AZJ-v*_EN.zip
-    tar xf RTK0EF0045Z0038AZJ-v*_EN/rz-codecs-v*.tar.gz -C ${WORK_DIR}
-    ```
-    {: .dollar }
-
-- Check your working directory:
-
-    ```bash
-    ls ${WORK_DIR}
-    ```
-    {: .dollar }
-
-    You will see the following directories.
-
-    ```bash
-    bootloaders  installer  oss  rz-codecs  rz-graphics
-    ```
-
 - Run the main script:
 
-    ```bash
-    cd ${WORK_DIR}/installer
-    ./make_bootable_tool.sh
-    ```
-    {: .dollar }
+  ```bash
+  ./make_bootable_image.sh
+  ```
 
-- The main menu provides 3 options:
-    - [**Select Image**](#421-select-image): Prepare an image with Ubuntu 24.04 pre-installed.
-    - [**Install Software**](#422-install-software): Install software packages to the image.
-    - [**Write Image**](#423-write-image): Write the image to the SD card.
+- The main menu provides 4 options:
 
-    ![main_menu.png](images_ubuntu/main_menu.png)
+  - [**Create new Ubuntu image.**](#421-create-new-ubuntu-image)
+  - [**Select available bootable image.**](#422-select-available-bootable-image)
+  - [**Install Renesas kernel and proprietary software.**](#423-install-renesas-kernel-and-proprietary-software)
+  - [**Write image to external media.**](#424-write-image-to-external-media)
 
-#### 4.2.1 Select Image
+  ![main_menu.png](images_ubuntu/main_menu.png)
 
-- Press ++enter++ on the **Select Image:** and select one of the two options below:
+#### 4.2.1 Create new Ubuntu image
 
-    - **1 Browse**: Select an image with Ubuntu 24.04 pre-installed.
-    - **2 Create New**: Create a new 16GiB image and install Ubuntu 24.04 on it.
+- Press Enter on the "Create new Ubuntu image".
 
-    ![Select image](images_ubuntu/select_image.png)
+  ![Create new Ubuntu image](images_ubuntu/create_new_ubuntu_image.png)
 
-!!! warning "Notice"
+- Use the file dialog to name the image (e.g., Linux.img) and select its location. Next, press "OK" to confirm.
 
-    When you perform this process for the first time, you need to create a new image (**2 Create New**).
-    You can use the created image next time (**1 Browse**).
+  ![Image name](images_ubuntu/naming_new_image.png)
 
-- For the **1 Browse** option, use the file dialog to select the image (e.g., `#!bash Linux.img`). Next, press **OK** to confirm and skip to [Section 4.2.2](#422-install-software).
+- Enter administrator password. The tool will then download, build, and install QEMU version 8.2.9. If it's already installed, this step will be skipped.
 
-    ![Choose image](images_ubuntu/select_available_image.png)
+  ![Download QEMU](images_ubuntu/download_qemu.png)
 
-- For the **2 Create New** option, use the file dialog to name the image (e.g., `#!bash Linux.img`) and select its location. Next, press **OK** to confirm.
+- The tool will allocate and format `Linux.img`.
 
-    ![Image name](images_ubuntu/naming_new_image.png)
+  ![Create raw image](images_ubuntu/QEMU_installed_and_create_image.png)
 
-- Enter the administrator password. The tool will then download, build, and install QEMU version 8.2.9. If it's already installed, this step will be skipped.
+- The tool will download the Ubuntu 24.04 ISO. If it already exists in the `downloads` folder, this step will be skipped.
 
-    ![Download QEMU](images_ubuntu/download_qemu.png)
+  ![Download ISO file](images_ubuntu/download_ubuntu_iso.png)
 
-- The tool will allocate and format `#!bash Linux.img`.
+  ![Complete Download ISO file](images_ubuntu/complete_download_iso.png)
 
-    ![Create raw image](images_ubuntu/QEMU_installed_and_create_image.png)
+- The tool will use QEMU VM to install Ubuntu 24.04 to `Linux.img`. Press "Ok" to continue.
 
-- The tool will download the Ubuntu 24.04 ISO. If it already exists in the `#!bash downloads` folder, this step will be skipped.
+  ![Start QEMU](images_ubuntu/starting_qemu_vm.png)
 
-    ![Download ISO file](images_ubuntu/download_ubuntu_iso.png)
-    ![Compelte Download ISO file](images_ubuntu/complete_download_iso.png)
+- Follow installation instructions in [Section 4.3](#43-how-to-install-ubuntu-2404).
 
-!!! success "Tip"
+- If successful, the "Completed" dialog box will appear. Press "Ok" to continue.
 
-    Downloading the Ubuntu ISO image may take a long time depending on your environment.
-    You can also download it from a [**mirror**](https://www.renesas.com/document/sws/ubuntu-24042-live-server-arm64-iso).
-    Please choose whichever is more convenient for you. <br>
-    When you download the image from the mirror, set up your environment as follows.
+  ![Complete install Ubuntu](images_ubuntu/complete_dialog_install_ubuntu.png)
 
-    1. If you have never used `#!bash 7z` on your PC, install `#!bash 7z` first.
-    ``` bash
-    sudo apt install p7zip-full
-    ```
-    {: .dollar }
+- The new image will now appear as the "Selected image" in the main menu.
 
-    2. Create a directory.
-    ``` bash
-    mkdir -p ${WORK_DIR}/installer/downloads/
-    ```
-    {: .dollar }
+  ![Select image after created](images_ubuntu/select_image_after_created.png)
 
-    3. Decompress the downloaded file from the mirror, and move the ISO image to your working directory.
-    ``` bash
-    7z x ubuntu-24.04.2-live-server-arm64-iso.7z
-    mv ubuntu-24.04.2-live-server-arm64-iso/ubuntu-24.04.2-live-server-arm64.iso ${WORK_DIR}/installer/downloads/
-    ```
-    {: .dollar }
+#### 4.2.2 Select available bootable image
 
-    4. Then, execute `#!bash ./make_bootable_tool.sh`.
+- Press Enter on the "Select available bootable image".
 
-- The tool will use QEMU VM to install Ubuntu 24.04 to `#!bash Linux.img`. Press **OK** to continue.
+  ![Option select image](images_ubuntu/select_image.png)
 
-    ![Start QEMU](images_ubuntu/starting_qemu_vm.png)
+- Use the file dialog to select the image (e.g., Linux.img). Next, press "OK" to confirm.
 
-- Follow installation instructions in [Section 4.2.4](#424-how-to-install-ubuntu-2404).
+  ![Choose image](images_ubuntu/choose_available_image.png)
 
-- If successful, the **Completed** dialog box will appear. Press **OK** to continue.
+- Once selected, the image will appear as the "Selected image" in the main menu.
 
-    ![Complete install Ubuntu](images_ubuntu/compelete_dialog_install_ubuntu.png)
+  ![Select image after selected](images_ubuntu/select_image_after_selected.png)
 
-#### 4.2.2 Install Software
+#### 4.2.3 Install Renesas kernel and proprietary software
 
-- Press ++enter++ on the **Install Software:**.
+- Please [create](#421-create-new-ubuntu-image) or [select](#422-select-available-bootable-image) an image first.
 
-    ![Select "Intall Software" option](images_ubuntu/install_renesas_sw.png)
+- Press Enter on the "Install Renesas kernel and proprietary software".
 
-- The tool will install all .deb packages into `#!bash Linux.img`.
+  ![Select "Install Software" option](images_ubuntu/install_renesas_sw.png)
 
-    ![Install sofware packages](images_ubuntu/start_install_renesas_sw.png)
+- The tool will install all .deb packages into `Linux.img`.
 
-- Wait for the **Success** dialog box. Press **OK** to continue.
+  ![Install software packages](images_ubuntu/start_install_renesas_sw.png)
 
-    ![Finish install software packages](images_ubuntu/install_renesas_sw_sucsess.png)
+- Wait for the dialog box below to appear, then click 'Ok' to continue.
 
-#### 4.2.3 Write Image
+  ![Finish install software packages](images_ubuntu/install_renesas_sw_success.png)
+
+#### 4.2.4 Write image to external media
+
+- **Note:** In this guide, we use a microSD card to illustrate the steps.
+
+- Please [create](#421-create-new-ubuntu-image) or [select](#422-select-available-bootable-image) an image first.
 
 - Plug in the microSD card to the Host PC.
 
-- In the main menu, press ++enter++ on **Write Image:** to write `#!bash Linux.img` to the microSD card.
+- In the main menu, press Enter on "Write image to external media" to write `Linux.img` to the microSD card.
 
-    ![Select "Write Image" option](images_ubuntu/write_image_to_SD.png)
+  ![Select "Write Image" option](images_ubuntu/write_image_to_SD.png)
 
-- Select the microSD card (e.g., `#!bash sdb Transcend (59,5G)`). Press **OK** to continue.
+- Select the microSD card (e.g., "sdb Transcend (59,5G)"). Press "Ok" to continue.
 
-    ![Select storage device](images_ubuntu/select_SD_to_write.png)
+  ![Select storage device](images_ubuntu/select_SD_to_write.png)
 
-- Press **Proceed** to confirm.
+- Press "Proceed" to confirm.
 
-    ![Confirm action](images_ubuntu/confirm_write_data.png)
+  ![Confirm action](images_ubuntu/confirm_write_data.png)
 
-- The tool will write `#!bash Linux.img` to `#!bash sdb Transcend (59,5G)`.
+- The tool will write `Linux.img` to `sdb Transcend (59,5G)`.
 
-    ![Write image](images_ubuntu/process_write_image.png)
+  ![Write image_with_bmap](images_ubuntu/write_image_with_bmap.png)
 
-- If successful, the following dialog box will appear. Press **OK** to continue.
+- If successful, the following dialog box will appear. Press "Ok" to continue.
 
-    ![Write image_successful](images_ubuntu/success_write_sd.png)
+  ![Write image_successful](images_ubuntu/success_write_sd.png)
 
-- Execute `#!bash sudo eject /dev/sdb` to safely remove the microSD card from the Host PC.
+- Execute "sudo eject /dev/sdb" to safely remove the microSD card from the Host PC.
 
-#### 4.2.4 How to install Ubuntu 24.04
+#### 4.2.5 Edit settings.txt (optional)
 
-- Press ++enter++ on **Try or Install Ubuntu Server**.
+##### 4.2.5.1 ISO_URLS
 
-    ![Install Ubuntu 24.04](images_ubuntu/menu_grub_install_qemu.png)
+- The `ISO_URLS` specifies the download links for the ISO file.
 
-- Press ++enter++ on **Continue in rich mode**.
+- By default, it points to the `Ubuntu 24.04.3 LTS arm64 ISO` hosted on the official release site.
 
-    ![Choose mode installer](images_ubuntu/QEMU1_continue_in_rich_mode.png)
+##### 4.2.5.2 IMAGE_SIZE
 
-- Press ++enter++ on **English**.
+- The `IMAGE_SIZE` specifies the size of the image to be created.
 
-    ![Select language](images_ubuntu/QEMU2_select_language.png)
+- By default, it will be 16 GB (16000000000 bytes).
 
-- Select your keyboard configuration (e.g., **English (US)**).
+- **Important:** The image size must be at least 10 GB.
 
-    ![Choose keyboard](images_ubuntu/QEMU3_keyboard_config.png)
+### 4.3 How To Install Ubuntu 24.04
 
-- Use the default settings and press ++enter++ to continue.
+- Press Enter on "Try or Install Ubuntu Server".
 
-    ![Select server](images_ubuntu/QEMU4_ubuntu_server_select.png)
+  ![Install Ubuntu 24.04](images_ubuntu/menu_grub_install_qemu.png)
 
-- Use the default settings and press ++enter++ to continue.
+- Press Enter on "Continue in rich mode".
 
-    ![Network setting](images_ubuntu/QEMU5_network_config.png)
+  ![Choose mode installer](images_ubuntu/QEMU1_continue_in_rich_mode.png)
 
-- Use the default settings and press ++enter++ to continue.
+- Press Enter on "English".
 
-    ![Proxy setting](images_ubuntu/QEMU6_proxy_config.png)
+  ![Select language](images_ubuntu/QEMU2_select_language.png)
 
-- Wait for the mirror location to be tested (see below), then press **Done** to continue.
+- Select your keyboard configuration (e.g., "English (US)") and press "Done" to continue.
 
-    ![Mirror setting](images_ubuntu/mirror_wait.png)
+  ![Choose keyboard](images_ubuntu/QEMU3_keyboard_config.png)
 
-- Deselect **Set up this disk as an LVM group** and press **Done** to continue.
+- Use the default settings and press "Done" to continue.
 
-    ![Storage setting](images_ubuntu/QEMU9_storage_config.png)
+  ![Select server](images_ubuntu/QEMU4_ubuntu_server_select.png)
 
-- Press ++enter++ to confirm the partitions of the **/dev/vdb** disk.
+- Use the default settings and press "Done" to continue.
 
-    ![Storage2 setting](images_ubuntu/QEMU10_storage_config_2.png)
+  ![Network setting](images_ubuntu/QEMU5_network_config.png)
 
-- Select **Continue** to finish partitioning and write changes to the **/dev/vdb** disk.
+- Use the default settings and press "Done" to continue.
 
-    ![Storage warn](images_ubuntu/QEMU11_warning.png)
+  ![Proxy setting](images_ubuntu/QEMU6_proxy_config.png)
 
-- Enter username (e.g., **user**) and password for the administrator account, then press **Done**.
+- Wait for the mirror location to be tested (see below), then press "Done" to continue.
 
-    ![Profile setting](images_ubuntu/QEMU12_profile_config.png)
+  ![Mirror setting](images_ubuntu/QEMU7_mirror_config.png)
 
-- Use the default settings and press ++enter++ to continue.
+- If the warning appears, press "Continue".
 
-    ![Skip ubuntu pro setting](images_ubuntu/QEMU13_skip_ubuntu_pro.png)
+  ![Mirror warning](images_ubuntu/QEMU8_mirror_warning.png)
 
-- Use the default settings and press **Done** to continue.
+- Deselect "Set up this disk as an LVM group" and press "Done" to continue.
 
-    ![Skip openssh setting](images_ubuntu/QEMU14_skip_install_OpenSSH_Server.png)
+  ![Storage setting](images_ubuntu/QEMU9_storage_config.png)
 
-- Do not select any snap package. Press **Done** to continue.
+- Press "Done" to confirm the partitions of the "/dev/vdb" disk.
 
-    ![Skip snap setting](images_ubuntu/QEMU15_skip_feature_server_snaps.png)
+  ![Storage2 setting](images_ubuntu/QEMU10_storage_config_2.png)
+
+- Select "Continue" to finish partitioning and write changes to the "/dev/vdb" disk.
+
+  ![Storage warn](images_ubuntu/QEMU11_warning.png)
+
+- Enter username (e.g., rvc) and password for the administrator account, then press "Done".
+
+  ![Profile setting](images_ubuntu/QEMU12_profile_config.png)
+
+- Use the default settings and press "Continue".
+
+  ![Skip ubuntu pro setting](images_ubuntu/QEMU13_skip_ubuntu_pro.png)
+
+- Use the default settings and press "Done" to continue.
+
+  ![Skip openssh setting](images_ubuntu/QEMU14_skip_install_OpenSSH_Server.png)
+
+- Do not select any snap package. Press "Done" to continue.
+
+  ![Skip snap setting](images_ubuntu/QEMU15_skip_feature_server_snaps.png)
 
 - Wait for the installation to finish.
 
-    ![Finish setting](images_ubuntu/QEMU16_waiting_install_ubuntu.png)
+  ![Finish setting](images_ubuntu/QEMU16_waiting_install_ubuntu.png)
 
-- Press **Reboot Now** to exit the installer.
+- Press "Reboot Now" to exit the installer.
 
-    ![Network setting](images_ubuntu/QEMU17_install_ubuntu_sucsess.png)
+  ![Network setting](images_ubuntu/QEMU17_install_ubuntu_sucsess.png)
 
-- Press ++ctrl+a+x++ to exit the VM.
+- After logging in, press Ctrl-A X to exit the VM.
 
-[Back to Getting Started >](../../getting_started/index.md#step-4-create-a-bootable-microsd-card){ .md-button .btn-right }
+  ![Login success](images_ubuntu/QEMU18_login.png)
+
+## 5. Common issues
+
+### 5.1 System hangs while preparing Ubuntu install
+
+- If the installation stays on a screen like the one below for more than 10 minutes after selecting `Try or Install Ubuntu Server`, the system may hang.
+
+  ![Hang issue](images_ubuntu/hang_issue.png)
+
+- For workaround, please increase the value of the `-smp` option in the `run_qemu.sh` script (default is `-smp 2`). Just make sure the new value does not exceed the number of CPU cores on your machine.
+
+### 5.2 Unable to download ISO file
+
+- If the installer fails to download the ISO file, it may show an error message:
+
+  ![URL not exist](images_ubuntu/url_not_exist.png)
+
+- For quick fix, find a valid URL for `ubuntu-24.04.3-live-server-arm64.iso` from the [Ubuntu old releases](https://old-releases.ubuntu.com/releases/noble/) or other trusted sources, then [update the value of ISO_URLS accordingly](#4251-iso_urls).
+
+### 5.2 Missing bmap file causes slow write speed
+
+- The installer uses .bmap file to accelerate the write speed when writing the image to external media. Without the .bmap file, it will fall back to nobmap mode, resulting in significantly slower write performance because the entire image must be written block by block.
+
+  ![Write image with no bmap](images_ubuntu/write_image_with_no_bmap.png)
+
+- When the image is compressed or transferred (e.g., uploaded to a server or shared with others), [its sparse regions (holes)](https://github.com/yoctoproject/bmaptool?tab=readme-ov-file#sparse-files) are filled with zeros. As a result, generating a new .bmap file afterward becomes meaningless and will no longer accelerate the write speed. To ensure fast writing and correct handling on other systems, always keep and distribute the image together with its corresponding .bmap file.
