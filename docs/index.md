@@ -12,9 +12,14 @@ They provide rich software ecosystems, and users can easily install the software
     * This solution provides guides, software, and scripts for creating Ubuntu/Debian environments.
     You can easily create Ubuntu/Debian environments by using software and scripts.
 
+Please note that the Ubuntu environment described on this website is intended solely for evaluation.
+For proof-of-concept development towards production, please download the official production-grade Ubuntu images, see [Partner Solution](#partner-solution).
+
 {% include "./history/_components/__front_matter.md" %}
 
 {% include "./overview/_components/__front_matter.md" %}
+
+{% include "./partner_solution/_components/__front_matter.md" %}
 
 {% include "./application_example/_components/__front_matter.md" %}
 
