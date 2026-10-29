@@ -13,7 +13,7 @@ nav:
   - Appendix: appendix/index.md
 
 theme:
-  name: material
+  name: materialx
   custom_dir: docs/_themes
   favicon: assets/icons/6723.T.png
   features:
